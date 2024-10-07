@@ -1,10 +1,10 @@
-"use client"
-import BottomNav from '@/components/BottomNav'
-import { ModeToggle } from '@/components/ThemeButton'
-import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
+"use client";
+import BottomNav from '@/components/BottomNav';
+import { ModeToggle } from '@/components/ThemeButton';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
     const [showConfirm, setShowConfirm] = useState(false);
     const router = useRouter();
 
@@ -19,7 +19,6 @@ const page = () => {
         // Redirect to login page
         router.replace('/');
     };
-    
 
     const handleCancelLogout = () => {
         setShowConfirm(false);
@@ -64,9 +63,9 @@ const page = () => {
                 </div>
             )}
 
-            <BottomNav/>
+            <BottomNav />
         </main>
-    )
-}
+    );
+};
 
-export default page
+export default Page;
