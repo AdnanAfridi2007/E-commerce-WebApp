@@ -7,26 +7,23 @@ const ItemPage = ({ params }) => {
   const { id } = params;
   const router = useRouter();
 
-  const item = items.find(item => item.id === id);
-
-  if (!item) {
-    return <div>Item not found</div>;
-  }
-
-  const backButton = () => {
-    router.push('/home');
-  };
-
+  // Hooks are placed at the top level, outside of conditionals
   const [count, setCount] = useState(1);
   const [currentUser, setCurrentUser] = useState(null); // State for currentUser
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch the currentUser from localStorage or set it directly
+  const item = items.find(item => item.id === id);
+
+  // Fetch the currentUser from localStorage
   useEffect(() => {
     const user = localStorage.getItem('currentUser'); // Assuming the user ID or info is stored here
     setCurrentUser(user); // Set currentUser state
     setIsLoading(false);
   }, []);
+
+  const backButton = () => {
+    router.push('/home');
+  };
 
   // Handle adding to favorites with currentUser
   const handleAddToFavorites = () => {
@@ -68,6 +65,10 @@ const ItemPage = ({ params }) => {
     localStorage.setItem(cartKey, JSON.stringify(existingCart));
     alert("Item added to cart!");
   };
+
+  if (!item) {
+    return <div>Item not found</div>;
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
