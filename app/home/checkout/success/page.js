@@ -1,12 +1,18 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
   const router = useRouter();
-  
-  // Assuming the order number is stored in local storage after payment
-  const orderNumber = localStorage.getItem('orderNumber') || 'N/A'; // Replace 'N/A' with your default value if needed
+  const [orderNumber, setOrderNumber] = useState('N/A');
+
+  // Use useEffect to ensure localStorage is only accessed on the client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedOrderNumber = localStorage.getItem('orderNumber');
+      setOrderNumber(storedOrderNumber || 'N/A');
+    }
+  }, []);
 
   const handleTrackOrderClick = () => {
     router.push('/notification');
